@@ -1,5 +1,0 @@
-# PearlHacks2020
-
-Authors: Katerina Wu, Elise Mai, LeAnn Lo, ChiChi Ugochukwu
-
-This project aims to create an accessible version of the game "Drench". It takes in voice commands in order to choose the color for the game. 

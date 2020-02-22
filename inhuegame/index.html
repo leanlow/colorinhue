@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Hellllooo</title>
+    <link rel="stylesheet" href="index.css" type="text/css"
+</head>
+<body>
+        <div class="area">
+                <div class="help">
+                  <button id="help" aria-label="help" onClick="toggle(this)">&quest;</button>
+                  <ul>
+                    <li>Fill the board with a single color;</li>
+                    <li>It will fill from top left to bottom right;</li>
+                    <li>Try to make a lower score. The lower, the best.</li>
+                  </ul>
+                </div>
+                <div class="options">
+                  <button id="new-game" onClick="resetGame()">New Game</button>
+                  <div class="score" id="score" title="Color changes">00</div>
+                  <label for="difficulty">
+                    <select id="#difficulty" aria-label="Difficulty" onChange="changeDifficulty(this)">
+                      <option value="1" selected="selected">Easy</option>
+                      <option value="2">Medium</option>
+                      <option value="3">Hard</option>
+                      <option value="4">Very Hard</option>
+                    </select>
+                  </label>
+                </div>
+                <div class="board" id="screen">
+                  <canvas class="canvas" id="canvas"></canvas>
+                </div>
+                <div class="buttons">
+                  <button style="color:#ffeb3b;" data-color="#ffeb3b" onclick="chooseColor(this)"><span>#ffeb3b</span></button>
+                  <button style="color:#ff5722;" data-color="#ff5722" onclick="chooseColor(this)"><span>#ff5722</span></button>
+                  <button style="color:#4caf50;" data-color="#4caf50" onclick="chooseColor(this)"><span>#4caf50</span></button>
+                  <button style="color:#1e88e5;" data-color="#1e88e5" onclick="chooseColor(this)"><span>#1e88e5</span></button>
+                  <button style="color:#673ab7;" data-color="#673ab7" onclick="chooseColor(this)"><span>#673ab7</span></button>
+                  <button style="color:#8d6e63;" data-color="#8d6e63" onclick="chooseColor(this)"><span>#8d6e63</span></button>
+                </div>
+              </div>
+              <script type="text/javascript" src="index.js"></script>      
+    
+</body>
+</html>

@@ -1,0 +1,186 @@
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+}
+html {
+  box-sizing: border-box;
+  font-size: 1vh;
+}
+body {
+  height: 100vh;
+  width: 100vw;
+}
+
+@media (min-height: 100vw) {
+  html {
+    font-size: 1vw;
+  }
+}
+
+@media (min-width: 100vh) {
+  html {
+    font-size: 1vh;
+  }
+}
+
+:root {
+  --board: calc(100rem - 28rem);
+}
+
+.help {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  font-size: 3.5rem;
+
+  button {
+    position: absolute;
+    top: 3rem;
+    right: 3rem;
+    z-index: 2;
+
+    height: 7rem;
+    padding: 0 2rem;
+    border: 0.7rem solid currentColor;
+    font-size: 3rem;
+    font-weight: bold;
+    background-color: #fff;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  ul {
+    padding: 13rem 3rem 3rem;
+    background-color: rgba(#000, 0.9);
+    color: #fff;
+    line-height: 1.4;
+    list-style: none;
+    transition: transform 0.2s ease-in;
+    transform: translateY(-200%);
+  }
+
+  &.visible {
+    z-index: 3;
+    button {
+      border-color: #999;
+    }
+    ul {
+      transform: translateY(0);
+    }
+  }
+}
+
+.area {
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
+.options {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  max-width: var(--board);
+  margin: 0 auto;
+  padding: 3rem 0;
+  font-size: 3rem;
+  text-align: center;
+
+  %config {
+    height: 8rem;
+    width: 100%;
+    padding: 0 0.5rem;
+    border: 1rem solid #3f51b5;
+    color: #3f51b5;
+    background-color: transparent;
+    border-radius: 0;
+    cursor: pointer;
+  }
+
+  button {
+    @extend %config;
+
+    &:hover {
+      background-color: #3f51b5;
+      border-color: rgba(#000, 0.2);
+      color: #fff;
+    }
+  }
+
+  label {
+    display: block;
+  }
+
+  select {
+    appearance: none;
+    @extend %config;
+
+    &:hover {
+      border-style: dotted;
+    }
+  }
+
+  .score {
+    font-size: 2em;
+    line-height: 8rem;
+    font-weight: bold;
+    color: #3f51b5;
+  }
+}
+
+.board {
+  margin: 0 auto;
+  position: relative;
+  height: var(--board);
+  width: var(--board);
+
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.canvas {
+  background-color: rgba(#000, 0.1);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: default;
+}
+
+.buttons {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  margin: 0 auto;
+  max-width: var(--board);
+  padding: 3rem 0;
+
+  button {
+    background-color: currentColor;
+    height: 8rem;
+    border: 1rem solid transparent;
+    font-size: 0;
+    overflow: hidden;
+    cursor: pointer;
+
+    &:hover,
+    &:focus {
+      border-color: rgba(#000, 0.3);
+      outline: none;
+    }
+  }
+}

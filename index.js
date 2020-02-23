@@ -48,7 +48,6 @@ recognition.onresult = function(event) {
   	var color = stringer[1];
   }
   
-  console.log(typeof(color));
   console.log('the spoken string?: ' + stringer);
 
   if (color == "blue"){
@@ -64,14 +63,24 @@ recognition.onresult = function(event) {
     color = "#64f750";
   }
 
+  if(color == "rat" || color == "Rat"){
+    var audio = new Audio('music/rat.mp3');
+    audio.play();
+  }
+
+  if(color == "chef" || color == "Chef"){
+    var audio = new Audio('music/chef.mp3');
+    audio.play();
+  }
+
   game.activeColor = color;
 
   setScore();
 
   console.log('Color selected: ' + game.activeColor);
 
-  console.log(game.activeColor + typeof(game.activeColor));
-  console.log(coloroptions.includes(game.activeColor));
+  //console.log(game.activeColor + typeof(game.activeColor));
+  //console.log(coloroptions.includes(game.activeColor));
 
   if(coloroptions.includes(game.activeColor)){
   	propagateColor(0, 0, game.activeColor);
@@ -86,12 +95,7 @@ recognition.onresult = function(event) {
     });
   });
 
-  if ((check4win() == 1)){
-    console.log("Winner!");
-  } 
-  else {
-    console.log("U loser!");
-  }
+  check4win();
 }
 
 //////////
@@ -107,7 +111,6 @@ let game = {
   activeColor: null
 };
 
-
 /*
 function getColors() {
   let colors = [];
@@ -120,8 +123,6 @@ function getColors() {
   return colors;
 }
 */
-
-
 
 function setScore() {
   const score = document.getElementById("score");
@@ -177,7 +178,6 @@ function buildBoard() {
       game.board.setSquare(i, j, square);
     }
   });
-
   drawBoard();
 }
 
@@ -218,13 +218,27 @@ function check4win() {
       if (sq.color == win_color) {
           count++;
           if (count==realboardSize) {
-            win += 1;
-            return win;
+
+            if (win_color == "#6cbafd"){
+              var audio = new Audio('music/blue.mp3');
+              audio.play();
+            }
+            if (win_color == "#fa80bd"){
+              var audio = new Audio('music/pink.mp3');
+              audio.play();
+            }
+            if (win_color == "#eaf737"){
+              var audio = new Audio('music/yellow.mp3');
+              audio.play();
+            }
+            if (win_color == "#64f750"){
+              var audio = new Audio('music/green.mp3');
+              audio.play();
+            }
           }
         }
     }); 
   });
-  return win;
 }
 
 

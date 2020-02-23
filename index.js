@@ -1,7 +1,91 @@
+var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition
+var SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList
+var SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent
+
+var coloroptions = ['blue','green', 'red', 'yellow'];
+var grammar = '#JSGF V1.0; grammar colors; public <color> = ' + coloroptions.join(' | ') + ' ;'
+
+var recognition = new SpeechRecognition();
+var speechRecognitionList = new SpeechGrammarList();
+speechRecognitionList.addFromString(grammar, 1);
+recognition.grammars = speechRecognitionList;
+recognition.continuous = true;
+recognition.lang = 'en-US';
+recognition.interimResults = false;
+recognition.maxAlternatives = 1;
+
+var diagnostic = document.querySelector('.output');
+
+document.body.onclick = function() {
+  recognition.start();
+  console.log('Ready to receive a color command.');
+}
+var count = 0;
+
+recognition.onresult = function(event) {
+  // The SpeechRecognitionEvent results property returns a SpeechRecognitionResultList object
+  // The SpeechRecognitionResultList object contains SpeechRecognitionResult objects.
+  // It has a getter so it can be accessed like an array
+  // The [last] returns the SpeechRecognitionResult at the last position.
+  // Each SpeechRecognitionResult object contains SpeechRecognitionAlternative objects that contain individual results.
+  // These also have getters so they can be accessed like arrays.
+  // The [0] returns the SpeechRecognitionAlternative at position 0.
+  // We then return the transcript property of the SpeechRecognitionAlternative object
+
+  var last = event.results.length - 1;
+  //var color = event.results[last][0].transcript;
+
+  console.log('All of it: ' + event.results[last][0].transcript);
+
+  var stringer = event.results[last][0].transcript;
+  var stringer = stringer.split(" ");
+
+  if(count == 0){
+  	var color = stringer[0];
+  }
+  else{
+  	var color = stringer[1];
+  }
+  
+  console.log(typeof(color));
+  console.log('the spoken string?: ' + stringer);
+  console.log('the first color?: ' + color);
+
+  //console.log('Confidence: ' + event.results[0][0].confidence);
+
+  //diagnostic.textContent = 'Result received: ' + color + '.';
+  //bg.style.backgroundColor = color;
+  game.activeColor = color;
+
+  setScore();
+
+  console.log('Color selected: ' + game.activeColor);
+
+  console.log(game.activeColor + typeof(game.activeColor));
+  console.log(coloroptions.includes(game.activeColor));
+
+  if(coloroptions.includes(game.activeColor)){
+  	propagateColor(0, 0, game.activeColor);
+  }
+  	
+  drawBoard();
+
+  count +=1;
+
+  game.board.squares.forEach(row => {
+    row.forEach(sq => {
+      sq.visited = false;
+    });
+  });
+  
+}
+
+//////////
+
 const K = 5;
 
 let game = {
-  colors: getColors(),
+  coloroptions: coloroptions,
   difficulty: 1,
   board: [],
   score: "00",
@@ -9,6 +93,8 @@ let game = {
   activeColor: null
 };
 
+
+/*
 function getColors() {
   let colors = [];
 
@@ -19,21 +105,9 @@ function getColors() {
 
   return colors;
 }
+*/
 
-function chooseColor(button) {
-  game.activeColor = button.dataset.color;
 
-  setScore();
-
-  propagateColor(0, 0, game.activeColor);
-  drawBoard();
-
-  game.board.squares.forEach(row => {
-    row.forEach(sq => {
-      sq.visited = false;
-    });
-  });
-}
 
 function setScore() {
   const score = document.getElementById("score");
@@ -124,7 +198,7 @@ function drawSquare(x, y, size, color) {
 }
 
 function getRandomColor() {
-  return game.colors[Math.floor(Math.random() * game.colors.length)];
+  return game.coloroptions[Math.floor(Math.random() * game.coloroptions.length)];
 }
 
 function toggle(button) {

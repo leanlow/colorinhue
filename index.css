@@ -37,6 +37,7 @@ body {
   right: 0;
   font-size: 3.5rem;
 
+  /*
   button {
     position: absolute;
     top: 3rem;
@@ -52,6 +53,7 @@ body {
     text-transform: uppercase;
     cursor: pointer;
   }
+  */
 
   ul {
     padding: 13rem 3rem 3rem;
@@ -105,7 +107,7 @@ body {
     cursor: pointer;
   }
 
-  button {
+  button { 
     @extend %config;
 
     &:hover {
@@ -157,6 +159,8 @@ body {
   cursor: default;
 }
 
+/*
+
 .buttons {
   position: fixed;
   right: 0;
@@ -184,3 +188,5 @@ body {
     }
   }
 }
+
+  */

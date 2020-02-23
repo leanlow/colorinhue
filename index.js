@@ -2,7 +2,9 @@ var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition
 var SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList
 var SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent
 
-var coloroptions = ['blue','green', 'red', 'yellow'];
+var coloroptions = ['#6cbafd','#64f750', '#fa80bd', '#eaf737'];
+
+
 var grammar = '#JSGF V1.0; grammar colors; public <color> = ' + coloroptions.join(' | ') + ' ;'
 
 var recognition = new SpeechRecognition();
@@ -33,7 +35,6 @@ recognition.onresult = function(event) {
   // We then return the transcript property of the SpeechRecognitionAlternative object
 
   var last = event.results.length - 1;
-  //var color = event.results[last][0].transcript;
 
   console.log('All of it: ' + event.results[last][0].transcript);
 
@@ -49,12 +50,20 @@ recognition.onresult = function(event) {
   
   console.log(typeof(color));
   console.log('the spoken string?: ' + stringer);
-  console.log('the first color?: ' + color);
 
-  //console.log('Confidence: ' + event.results[0][0].confidence);
+  if (color == "blue"){
+        color = "#6cbafd";
+  }
+  if (color == "pink"){
+    color = "#fa80bd";
+  }
+  if (color == "yellow"){
+    color = "#eaf737";
+  }
+  if (color == "green"){
+    color = "#64f750";
+  }
 
-  //diagnostic.textContent = 'Result received: ' + color + '.';
-  //bg.style.backgroundColor = color;
   game.activeColor = color;
 
   setScore();
@@ -172,6 +181,19 @@ function drawBoard() {
     row.forEach(sq => {
       sq.visited = false;
 
+      if (sq.color == "blue"){
+        sq.color = "#6cbafd";
+      }
+      if (sq.color == "pink"){
+        sq.color = "#fa80bd";
+      }
+      if (sq.color == "yellow"){
+        sq.color = "#eaf737";
+      }
+      if (sq.color == "green"){
+        sq.color = "#64f750";
+      }
+
       drawSquare(sq.x, sq.y, game.board.squareSize, sq.color);
     });
   });
@@ -188,6 +210,19 @@ function propagateColor(i, j, newColor) {
       propagateColor(sq.row, sq.column, newColor);
     }
   });
+
+  if (square.color == "blue"){
+        square.color = "#6cbafd";
+      }
+      if (square.color == "pink"){
+        square.color = "#fa80bd";
+      }
+      if (square.color == "yellow"){
+        square.color = "#eaf737";
+      }
+      if (square.color == "green"){
+        square.color = "#64f750";
+      }
 
   square.color = newColor;
 }

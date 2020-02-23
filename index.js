@@ -80,13 +80,18 @@ recognition.onresult = function(event) {
   drawBoard();
 
   count +=1;
-
   game.board.squares.forEach(row => {
     row.forEach(sq => {
       sq.visited = false;
     });
   });
-  
+
+  if ((check4win() == 1)){
+    console.log("Winner!");
+  } 
+  else {
+    console.log("U loser!");
+  }
 }
 
 //////////
@@ -198,6 +203,30 @@ function drawBoard() {
     });
   });
 }
+
+function check4win() {
+  const boardSize = (game.difficulty * K);
+  const realboardSize = boardSize* boardSize;
+  let win_color = game.board.squares[0][0].color;
+  console.log("Winning color is: " + win_color);
+  var count = 0;
+
+  var win = 0
+
+  game.board.squares.forEach(row => {
+    row.forEach(sq => {
+      if (sq.color == win_color) {
+          count++;
+          if (count==realboardSize) {
+            win += 1;
+            return win;
+          }
+        }
+    }); 
+  });
+  return win;
+}
+
 
 function propagateColor(i, j, newColor) {
   let square = game.board.squares[i][j];
